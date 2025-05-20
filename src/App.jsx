@@ -1,22 +1,24 @@
-import { useState } from "react"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Users from './pages/Users';
 
 function App() {
-    const [message, setMessage] = useState("aucun message")
-  const displayMsg=  async ()=>{
-    try {
-    const response =await fetch("http://localhost:8000")
-    const data = await response.json()
-    setMessage(data.message)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   return (
-    <div className="grid h-screen w-full place-content-center">
-      <button onClick={displayMsg}>fetch</button>
-      <p>{message}</p>
-    </div>
-  )
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <Navbar />
+        <main className="max-w-6xl mx-auto px-4 py-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
